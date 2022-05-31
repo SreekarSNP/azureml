@@ -33,10 +33,13 @@ jobs:
       run: echo "Hello ${{ github.event.inputs.name }}"
       
     - name: Azure Login
-      uses: Azure/login@v1.4.4
+      uses: azure/login@v1
       with:
-        # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        subscription-id: 53c3a1b8-f7eb-41cb-b0bf-1a8f4ec3c7da
-        # Set this value to true to enable Azure PowerShell Login in addition to Az CLI login
-        
+
+    - name: Azure CLI script
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.30.0
+        inlineScript: |
+          az account show
